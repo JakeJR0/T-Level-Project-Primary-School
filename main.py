@@ -100,25 +100,30 @@ if not setup:
 
 
 def get_test_id():
-    largest_id = 100000  # Sets Min
+    # Sets Min
+    largest_id = 100000
     try:
-        for row in con.execute("SELECT ID FROM arithmetic_test"):  # Gets ID from table
+        # Gets ID from table
+        for row in con.execute("SELECT ID FROM arithmetic_test"):
             if row[0] > largest_id:
                 largest_id = row[0]  # Sets largest ids
-
-        return largest_id + 1  # Increments
+        # Increments
+        return largest_id + 1
     except Exception as err:
         print(f"Failed to get test id with error: {err}")
 
 
 def get_student_id():
-    largest_id = 100000  # Sets Min
+    # Sets Min
+    largest_id = 100000
     try:
-        for row in con.execute("SELECT ID FROM students"):  # Gets ID from table
+        # Gets ID from table
+        for row in con.execute("SELECT ID FROM students"):
             if row[0] > largest_id:
-                largest_id = row[0]  # Sets largest ids
-
-        return largest_id + 1  # Increments
+                # Sets largest ids
+                largest_id = row[0]
+        # Increments
+        return largest_id + 1
     except Exception as err:
         if program_debug:
             print(err)
@@ -160,7 +165,8 @@ def user_exists(sid=0):
 
 
 def get_score(calculation="", answer=0):
-    while True:  # Holds the user in the loop
+    # Holds the user in the loop
+    while True:
         try:
             user_answer = float(input(calculation))
             answer = round(answer, 2)
@@ -332,32 +338,32 @@ def submit_grade():
                     if program_debug:
                         print(err)
 
-                while True:
-                    try:
-                        score_1 = int(input("Score 1: "))
-                        if 0 < score_1 < 30:
-                            break
-                    except Exception as err:
-                        if program_debug:
-                            print(err)
+            while True:
+                try:
+                    score_1 = int(input("Score 1: "))
+                    if 0 < score_1 < 30:
+                        break
+                except Exception as err:
+                    if program_debug:
+                        print(err)
 
-                while True:
-                    try:
-                        score_2 = int(input("Score 2: "))
-                        if 0 < score_2 < 30:
-                            break
-                    except Exception as err:
-                        if program_debug:
-                            print(err)
+            while True:
+                try:
+                    score_2 = int(input("Score 2: "))
+                    if 0 < score_2 < 30:
+                        break
+                except Exception as err:
+                    if program_debug:
+                        print(err)
 
-                while True:
-                    try:
-                        score_3 = int(input("Score 3: "))
-                        if 0 < score_2 < 30:
-                            break
-                    except Exception as err:
-                        if program_debug:
-                            print(err)
+            while True:
+                try:
+                    score_3 = int(input("Score 3: "))
+                    if 0 < score_2 < 30:
+                        break
+                except Exception as err:
+                    if program_debug:
+                        print(err)
 
                 # Adds the information to
                 # the database and checks
@@ -365,15 +371,15 @@ def submit_grade():
                 # to add the data to the
                 # database successfully
 
-                success = submit_arithmetic_results(student_id, score_1, score_2, score_3)
-                if success:
-                    print("\nAdded Entry.")
+            success = submit_arithmetic_results(student_id, score_1, score_2, score_3)
+            if success:
+                print("\nAdded Entry.")
 
-                    more = input("\nDo you wish to add more? (Y/N) ")
-                    if more.lower() == "n":
-                        break
-                else:
-                    print("Failed to add Entry.")
+                more = input("\nDo you wish to add more? (Y/N) ")
+                if more.lower() == "n":
+                    break
+            else:
+                print("Failed to add Entry.")
         except Exception as err:
             if program_debug:
                 print(err)
