@@ -2,15 +2,34 @@ import sqlite3
 import os
 import numpy.random as random
 
-database_file = "school.db"  # Sets Database Name
+# Sets Database Name
+
+database_file = "school.db"
+
+# Tells the program if it should
+# delete the database if it fails
+# to set up.
+
 database_remove_on_failure = True
-setup = os.path.exists(database_file)  # Checks if the file exists
+
+# Checks if the file exists
+
+setup = os.path.exists(database_file)
+
+# Initialises the variable
 
 con = None
+
+# Sets debug mode to false
+# will avoid showing any errors
+# that might occur when running
+# the program.
+
 program_debug = False
 
 try:
-    con = sqlite3.connect(database_file)  # Connects to the database
+    # Connects to the database
+    con = sqlite3.connect(database_file)
 except Exception as error:
     if program_debug:
         print(error)
@@ -19,7 +38,19 @@ except Exception as error:
 def setup_database(force=False):
     global con
 
+    # Sets up the database by
+    # adding the tables that will
+    # be needed in the database
+    # for the program to successfully
+    # run.
+
     if force:
+        # Force will remove the database
+        # and make sure that the program
+        # creates a clean version of the
+        # database which might be handy
+        # for the teacher or program.
+
         if os.path.exists(database_file):
             if con:
                 con.close()
@@ -51,6 +82,8 @@ def setup_database(force=False):
                 average_score REAL NOT NULL
             )
         ''')
+
+        # Saves the database
 
         con.commit()
 
